@@ -1,4 +1,17 @@
-Realtime chat app
+# Realtime Chat App
+
+MERN Stack Typescript chat app.
+
+## Running the Application
+
+1. Start the backend server:
+
+```bash
+cd backend
+npm run dev
+```
+
+2. Navigate to `http://localhost:3000` to see the application.
 
 # React + TypeScript + Vite
 
