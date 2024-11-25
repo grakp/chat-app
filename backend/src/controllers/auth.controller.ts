@@ -3,9 +3,14 @@ import { generateToken } from "../lib/utils";
 import User from "../models/user.model";
 import bcrypt from "bcryptjs";
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response): Promise<Response | void> => {
     const { fullName, email, password } = req.body;
+
     try {
+        if (!fullName || !email || !password) {
+            return res.status(400).json({ msg: "Please enter all fields" });
+        }
+
         if (password.length < 6) {
             return res.status(400).json({ msg: "Password must be at least 6 characters" });
         }
@@ -45,14 +50,11 @@ export const signup = async (req: Request, res: Response) => {
     } catch (error) {
         if (error instanceof Error) {
             console.log("Signup error: ", error.message);
-            res.status(500).json({ msg: "Internal Server error" });
+            return res.status(500).json({ msg: "Internal Server error" });
         } else {
             console.log("Unexpected error: ", error);
-            res.status(500).json({ msg: "Unexpected error" });
+            return res.status(500).json({ msg: "Unexpected error" });
         }
-
-        
-        
     }
 };
 
